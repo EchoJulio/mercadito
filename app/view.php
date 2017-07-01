@@ -28,7 +28,7 @@ class View{
 			array(
 					'id' => 'publicar',
 					'titulo' => 'Publicar',
-					'enlace' => BASE_URL . 'publicar'
+					'enlace' => BASE_URL . 'post'
 				)
 			
 		);

@@ -174,19 +174,7 @@ abstract class Controller{
         
     }
 
-    protected function saveImg($img){
-    	
-    	if (!$img) {
-    		return false;
-    	}
-
-    	if (count($img) > 0) {
-    		return false;
-    	}
-
-    	$name = $img['inputdim1']['n'];
-    	$formatos_img = array('gif', 'jpg', 'jpeg', 'png');
-    }
+    
 
 
 

@@ -8,15 +8,17 @@
 	</div>
 
 	<div class="row">
-		<?php if (isset($this->categorias)): ?>
+		<?php if (isset($this->categorias) && isset($this->subCategorias)): ?>
 					<?php $categorias = $this->categorias; ?>
 					<?php $subCategorias = $this->subCategorias; ?>
+					
 
 					<?php foreach ($categorias as $row => $value): ?>
 					<div class="col-md-3">
 						
 						<div class="well" style="height: 250px;">
 								<i class="material-icons" style="color: #03a9f4; font-size: 35px;"> <?php echo $value['icon']; ?> </i>
+								
 							<a href="#" style="color: #000; "><h4><?php echo $value['categoria']; ?></h4></a>
 							<div class="list-group">
 								<?php
@@ -44,18 +46,29 @@
 		<H2>Publicaciones Recientes:</H2><hr>
 			<!-- <div class="well"> -->
 			
-				<?php if (isset($this->post)): ?>
+				<?php if (isset($this->post) && isset($this->images)): ?>
 							<?php $posts = $this->post; ?>
+							<?php $images = $this->images; $limitarImg = 0; ?>
 							<?php foreach ($posts as $row => $value): ?>
 								<div class="col-md-6">
-								<a href="#" style="color: #1c1c1c; text-decoration: none;">
+								<a href="<?php echo BASE_URL . 'post/ver/' . $value['id']; ?>" style="color: #1c1c1c; text-decoration: none;">
 
 								<div class="well">
 								
 								<h3><?php echo substr($value['title'], 0, 30); ?></h3>
 								
 								
-								<img style="width: 100px; height: 100px;" alt="imagen1" src="<?php echo BASE_URL; ?>/public/img/1.jpg">
+								<?php
+									for ($i=0; $i < count($images); $i++) { ?>
+
+									<?php if ($value['id'] == $images[$i]['id_post']): ?>
+										<img style="width: 100px; height: 100px;" alt="imagen1" src="<?php echo BASE_URL; ?>public/img/<?php echo $images[$i]['title'] . $images[$i]['format']; ?>">
+										
+									<?php endif ?>
+										
+										<?php
+									}
+								?>	
 								
 								
 								<p>
