@@ -191,7 +191,7 @@
       <div class="modal-content" >
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Publicar</h4>
+          <h4 class="modal-title" style="text-align: center;"><i class="material-icons" style="color: #ff6736; font-size: 40px;">error</i></h4>
         </div>
         <div class="modal-body">
           <p><?php if (isset($this->mensaje)): ?>
