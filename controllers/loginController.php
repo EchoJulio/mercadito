@@ -22,13 +22,13 @@ class LoginController extends Controller
 			$this->view->datos = $_POST;
 
 			if (!$this->getAlphaNum('usuario')) {
-				$this->view->errorUsuario = 'Debe introducir un usuario';
+				$this->view->mensajeError = 'Debe introducir un usuario';
 				$this->view->renderizar('index','login');
 				exit;
 			}
 
 			if (!$this->getSql('pass')) {
-				$this->view->errorPass = 'Debe introducir una contraseña';
+				$this->view->mensajeError = 'Debe introducir una contraseña';
 				$this->view->renderizar('index','login');
 				exit;
 			}
@@ -36,8 +36,8 @@ class LoginController extends Controller
 			$row = $this->login->login($this->getAlphaNum('usuario'),$this->getSql('pass'));
 
 
-			if (!$row) {
-				$this->view->errorLogin = 'Usuario y/o Contraseña incorrectos';
+			if (count($row) == 0 || !$row) {
+				$this->view->mensajeError = 'Usuario y/o Contraseña incorrectos';
 				$this->view->renderizar('index','login');
 				exit;
 			}

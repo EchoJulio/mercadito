@@ -1,8 +1,9 @@
 <!-- Recibimos el parametro titulo enviado desde el controlador -->
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<H2>Prueba buscar el articulo que quieres por categorias:</H2><hr>
+			<H2>Prueba buscar por categoria... <i class="material-icons" style="font-size: 40px; "></i></H2><hr>
 		</div>
 		
 	</div>
@@ -38,8 +39,10 @@
 					<?php endforeach ?>
 				<?php endif ?>
 
-		
+				
 	</div>
+
+
 
 	<div class="row">
 		<div class="col-md-9">
@@ -62,7 +65,7 @@
 									for ($i=0; $i < count($images); $i++) { ?>
 
 									<?php if ($value['id'] == $images[$i]['id_post']): ?>
-										<img style="width: 100px; height: 100px;" alt="imagen1" src="<?php echo BASE_URL; ?>public/img/<?php echo $images[$i]['title'] . $images[$i]['format']; ?>">
+										<img style="width: 100px; height: 100px;" class="img-thumbnail" alt="<?php echo $images[$i]['title']; ?>" src="<?php echo BASE_URL; ?>public/img/<?php echo $images[$i]['title'] . $images[$i]['format']; ?>">
 										
 									<?php endif ?>
 										

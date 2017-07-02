@@ -50,7 +50,8 @@ class Bootstrap
 			}
 
 		}else{
-			throw new Exception("La ruta no pudo ser encontrada");
+			header('Location:' . BASE_URL . 'error/access/1010');
+			exit;;
 			
 		}
 	}

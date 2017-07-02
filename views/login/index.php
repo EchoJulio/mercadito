@@ -20,22 +20,52 @@
         </div> -->
         <button  class="btn btn-raised btn-lg btn-success btn-block" type="submit">Enviar</button>
         <input type="hidden" name="enviar" value="1">
-</form>
+    </form>
+    </div>
+  </div>
+<div class="container">
+
+  <!-- <h2>Modal Example</h2> -->
+  <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body">
+          <p><?php if (isset($this->mensajeError)): ?>
+          <script type="text/javascript">
+              $('#myModal').modal('show');
+
+          </script>
+                <?php echo $this->mensajeError; ?>
+          <?php endif ?></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
 </div>
 
-<?php
-if (isset($this->errorUsuario) &&
-	isset($this->errorPass) &&
-	isset($this->errorValidar) &&
-	isset($this->errorLogin)) {
 
-echo $this->errorUsuario . '<br>';
-echo $this->errorPass. '<br>';
-echo $this->errorValidar. '<br>';
-echo $this->errorLogin. '<br>';
-}
-?>
-	</div>
-</div>
+
+
+
+
+  
+
+
 
 

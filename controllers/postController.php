@@ -20,6 +20,44 @@ class postController extends Controller{
 		$this->view->provincias = $this->post->getProvincias();
 		
 		 if ($this->getPostParam('enviar') == 1) {
+		 	$this->view->datos = $_POST;
+
+		 	if (!$this->getPostParam('title')) {
+		 		$this->view->mensaje = 'No ha ingresado ningun titulo.';
+		 		$this->view->renderizar('index','publicar');
+		 		exit;
+		 	}
+
+		 	if (!$this->getPostParam('description')) {
+		 		$this->view->mensaje = 'La descripcion no de la publicacion no puede estar vacia.';
+		 		$this->view->renderizar('index','publicar');
+		 		exit;
+		 	}
+
+		 	if (!$this->getPostParam('price')) {
+		 		$this->view->mensaje = 'La descripcion no de la publicacion no puede estar vacia.';
+		 		$this->view->renderizar('index','publicar');
+		 		exit;
+		 	}
+
+		 	if (!$this->validarImg($_FILES)) {
+		 		$this->view->mensaje = 'Parece que no haz agregardo ninguna imagen o haz agregado mas de 5 imagenes.';
+		 		$this->view->renderizar('index','publicar');
+		 		exit;
+		 	}
+
+		 	if (!$this->validarTamanoImg($_FILES)) {
+		 		$this->view->mensaje = 'Parece que alguna de las imagenes tiene un peso de 5MB, prueba con una con menor peso.';
+		 		$this->view->renderizar('index','publicar');
+		 		exit;
+		 	}
+
+		 	if (!$this->validarFormatoImg($_FILES)) {
+		 		$this->view->mensaje = 'Parece que alguna de las imagenes tiene un formato no permitido.';
+		 		$this->view->renderizar('index','publicar');
+		 		exit;
+		 	}
+
 		 	$this->post->add(
 					$this->getPostParam('title'),
 					$this->getPostParam('description'),
@@ -31,25 +69,18 @@ class postController extends Controller{
 					$this->getPostParam('moneda')
 						);
 
-			if (isset($_FILES)) {
-					if ($this->post->saveImg($_FILES)) {
-
-					$this->view->mensaje = "fotos guardadas";
-
-				}else{
-					$this->view->mensaje = "Error fotos guardadas";
-				}
-			}
 			
-			$this->view->mensaje = "Post publicado de manera exitosa";
-		 }
+			$this->post->saveImg($_FILES);
+
+			$this->view->mensajeExito = "Post publicado de manera exitosa";
+		}
+		 
 		
 		$this->view->renderizar('index','publicar');
 
 	}
 
 	public function ver($id = false){
-		Session::acceso('usuario');
 
 		$id = (int) $id;
 		$this->view->id = $id;

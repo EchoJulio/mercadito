@@ -113,7 +113,7 @@ class postModel extends model{
     	//$imagenInfo = getimagesize($img['imagenes']['tmp_name']);
 
     	//Validamos el tamano maximo de los imagenes
-    	if (count($img['imagenes']['name']) > 0 && count($img['imagenes']['name']) > $maxImg) {
+    	if (count($img['imagenes']['name']) == 0 && count($img['imagenes']['name']) > $maxImg) {
     		return false;
     	}
     	//Validamos el formato permitido de las imagenes

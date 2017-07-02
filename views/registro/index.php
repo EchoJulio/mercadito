@@ -30,7 +30,6 @@
     	 </div>
     </div>
 
-		<fieldset>
     
     <div class="form-group">
 
@@ -150,7 +149,6 @@
     </div>
 
     
-  </fieldset>
   	<input type="hidden" class="form-control" name="enviar" value="1">
 	</form>
 

@@ -1,15 +1,21 @@
+<?php
 
+	// echo "<pre>";
+	// print_r($_FILES);
+	// echo "<br>" . count($_FILES['imagenes']);
+	// echo "</pre>";
+  ?>
 <div class="container">
 	<h3><?php echo $this->titulo; ?> <i class="material-icons" style="color: #ff5722;">new_releases</i></h3><hr>
 	
 
 	 
 	<?php
-		if (isset($this->mensaje) && !empty($this->mensaje)) {?>
+		if (isset($this->mensajeExito) && !empty($this->mensajeExito)) {?>
 			<div class="alert alert-dismissible alert-success">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			<strong>Bien!</strong> 
-			<?php echo $this->mensaje; ?>
+			<?php echo $this->mensajeExito; ?>
 
 			 </div>
 	<?php
@@ -24,7 +30,7 @@
 					<div class="form-group">
 						<label class="col-lg-2 control-label">Título:</label>
 						<div class="col-lg-10">
-							<input class="form-control" type="text" name="title" required="" maxlength="30" placeholder="Título">
+							<input class="form-control" type="text" name="title" required=""  maxlength="30" placeholder="Título" value="<?php if(isset($this->datos['title'])) echo $this->datos['title']; ?>">
 						</div>
 					</div>
 
@@ -32,7 +38,7 @@
 					<div class="form-group">
 						<label class="col-md-2 control-label">Descripcíon:</label>
 						<div class="col-md-9">
-							<textarea rows="6" style="resize: none;"  class="form-control" type="text" name="description" maxlength="200" required=""  placeholder="Descripcíon"></textarea>
+							<textarea rows="6" style="resize: none;"  required="" class="form-control" type="text" name="description" maxlength="200"  placeholder="Descripcíon" value="<?php if(isset($this->datos['description'])) echo $this->datos['description']; ?>"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -95,7 +101,7 @@
 						<div class="col-md-12">
 							<label class="col-md-2 control-label">Precio:</label>
 							<div class="col-md-4">
-								<input class="form-control" type="number" name="price" required="" placeholder="0,000.00">						
+								<input value="<?php if(isset($this->datos['price'])) echo $this->datos['price']; ?>" class="form-control" type="number" name="price" required="" placeholder="0,000.00">						
 							</div>
 
 							<div class="col-md-4">
@@ -171,7 +177,40 @@
 
 	</div>
 </div>
+<div class="container">
 
+  <!-- <h2>Modal Example</h2> -->
+  <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Publicar</h4>
+        </div>
+        <div class="modal-body">
+          <p><?php if (isset($this->mensaje)): ?>
+          <script type="text/javascript">
+              $('#myModal').modal('show');
+
+          </script>
+                <?php echo $this->mensaje; ?>
+          <?php endif ?></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
 <script>
 // $("#input-dim-1").fileinput({
 //     language: 'es',

@@ -9,7 +9,7 @@
 		  	<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="col-md-9">
-						<h1><?php echo  $this->post['title'];?></h1>
+						<h1 style="color: #0fb2fc;"><?php echo  $this->post['title'];?></h1>
 					</div>
 			 	<div class="col-md-1">
 			 			

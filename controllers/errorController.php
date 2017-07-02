@@ -14,6 +14,8 @@ class errorController extends Controller{
 		$this->view->renderizar('index','error');
 	}
 
+	
+
 	public function access($codigo){
 		$this->view->titulo = 'Error';
 		$this->view->mensaje = $this->getError($codigo);
@@ -34,7 +36,7 @@ class errorController extends Controller{
 		$error['default'] = 'Oops! Ha ocurrido un error y la pagina no puede mostrarse.';
 		$error['5050'] = 'Acceso restringido';
 		$error['8080'] = 'El tiempo de sesion se a agotado';
-		$error['1010'] = 'No te has logeado';
+		$error['1010'] = 'La direccion no esta disponible';
 
 		//Validamos que el error enviado exista en la lista y de ser asi lo retornamos
 		if (array_key_exists($codigo, $error)) {

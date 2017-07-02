@@ -106,6 +106,7 @@ abstract class Controller{
 
 	}
 
+
 	protected function getSql($clave){
 
         if(isset($_POST[$clave]) && !empty($_POST[$clave])){
@@ -172,6 +173,68 @@ abstract class Controller{
         }
         return false;
         
+    }
+
+    protected function validarImg($img){
+    	if (!isset($img)) {
+    		return false;
+
+    	}else{
+
+	    	if (count($img['imagenes']['name']) == 0 || !count($img['imagenes']['name'])) {
+	    		return false;
+	    	}
+
+	    	if (count($img['imagenes']['name']) > 5) {
+	    		return false;
+	    	}
+    	}
+    	return true;
+
+    }
+
+    protected function validarFormatoImg($img){
+
+    	
+    	if (!isset($img)) {
+    		return false;
+
+    	}
+
+
+    	$formatosValidos = array('image/gif', 'image/jpg', 'image/jpeg', 'image/png');
+
+    	$formatosImg = $img['imagenes']['type'];
+    	//$imagenInfo = getimagesize($img['imagenes']['tmp_name']);
+
+    	
+    	//Validamos el formato permitido de las imagenes
+    	 for ($i=0; $i < count($formatosImg); $i++) { 
+			if (!in_array($formatosImg[$i], $formatosValidos)) {
+				return false;
+			}
+    	 }
+    	return true;
+
+    }
+
+    protected function validarTamanoImg($img){
+    	
+    	if (!isset($img)) {
+    		return false;
+
+    	}
+
+    	$tamanoMax = 5 * 1024 * 1024;
+
+    	//Validamos el tamano maximo de los imagenes
+    	if (count($img['imagenes']['size']) > 0 && count($img['imagenes']['size']) > $tamanoMax) {
+    		return false;
+    	}
+
+    	
+    	return true;
+
     }
 
     
