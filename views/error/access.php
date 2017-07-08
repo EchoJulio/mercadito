@@ -7,6 +7,7 @@
 			 ?></h2>
 			 <a href="<?php echo BASE_URL; ?>" class="alert-link">ir al inicio</a> |
 			 <a href="javascript:history.back(1)" class="alert-link">volver a la pagina anterior</a> |
+			 <a href="<?php echo BASE_URL; ?>/registro" class="alert-link">Registarse</a> |
 
 
 			<?php 

@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-dafault ">
+<div class="navbar navbar-dafault">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -68,7 +68,7 @@
                   }
                  
             ?>    
-                <li <?php echo $ocultar; ?> class="<?php echo $enlaceStyle; ?>"><a href="<?php echo $value['enlace']; ?>"><?php echo $value['titulo']; ?><span class="sr-only">(current)</span></a></li>
+                <li <?php echo $ocultar; ?> class="<?php echo $enlaceStyle; ?> "><a class="text-menu" href="<?php echo $value['enlace']; ?>"><?php echo $value['titulo']; ?><span class="sr-only">(current)</span></a></li>
             <?php
 
             }
@@ -79,7 +79,8 @@
       <div class="col-lg-offset-3">
         <form class="navbar-form navbar-left">
         <div class="form-group">
-          <input type="text" class="form-control col-md-8" placeholder="Search">
+          <input type="text" class="form-control col-md-12" placeholder="Buscar...">
+
         </div>
       </form>
       </div>
@@ -108,14 +109,14 @@
         }
            if ($menuLogin['id'] == 'login') {?>
       
-                    <li><a href="<?php echo $menuLogin['enlace']; ?>"><?php echo $menuLogin['titulo']; ?></a></li>
+                    <li><a class="text-menu" href="<?php echo $menuLogin['enlace']; ?>"><?php echo $menuLogin['titulo']; ?></a></li>
                  
 
                   <?php
             }
             if (!empty($menuRegistrar)) {?>
               <?php if ($menuRegistrar['id'] == 'registro'): ?>
-                  <li><a href="<?php echo $menuRegistrar['enlace']; ?>"><?php echo $menuRegistrar['titulo']; ?></a></li>
+                  <li><a class="text-menu" href="<?php echo $menuRegistrar['enlace']; ?>"><?php echo $menuRegistrar['titulo']; ?></a></li>
               <?php endif ?>
              
             <?php
@@ -124,8 +125,10 @@
 
       </ul>
     </div>
+     
   </div>
 </div>
+
 
 
 
@@ -156,5 +159,13 @@ if (isset($layoutParams['ruta_js']) && count($layoutParams['ruta_js'])) {
     }
 
     ?>
+
+ <?php if (Session::acessoView('usuario')): ?>
+    <div class="floating">
+  <a href="<?php echo BASE_URL; ?>post" title='Publicar' class="btn btn-raised btn-warning btn-fab">
+  <i class="material-icons">record_voice_over</i>
+  </a>
+</div>
+ <?php endif ?>
 
 

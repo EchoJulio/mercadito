@@ -166,9 +166,10 @@
 
 				</div>
 			</div>
-			<div class="col-md-12">
-				<button type="submit"  class="btn btn-raised btn-success">Publicar</button>
-			</div>
+				<div class="col-md-12">
+					<button type="submit"  class="btn btn-raised btn-success">Publicar</button>
+				</div>
+		
 	
 		</form>
 	

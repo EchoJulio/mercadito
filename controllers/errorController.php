@@ -34,9 +34,11 @@ class errorController extends Controller{
 		//Array asoc con la lista de errores que puedo solicitar
 		//por la url usado la variable codigo
 		$error['default'] = 'Oops! Ha ocurrido un error y la pagina no puede mostrarse.';
-		$error['5050'] = 'Acceso restringido';
+		$error['5050'] = '!Acceso restringido! <br> <small>Puedes probar con uno de los links de abajo</small>';
 		$error['8080'] = 'El tiempo de sesion se a agotado';
 		$error['1010'] = 'La direccion no esta disponible';
+		$error['2020'] = 'Parece que quieres hacer una publicacion pero, debes logearte antes o registrarte prueba con uno de los enlaces siguientes:';
+
 
 		//Validamos que el error enviado exista en la lista y de ser asi lo retornamos
 		if (array_key_exists($codigo, $error)) {

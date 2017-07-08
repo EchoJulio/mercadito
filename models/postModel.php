@@ -20,6 +20,21 @@ class postModel extends model{
 		return $post;
 	}
 
+	public function getPostFilter($parametro){
+
+		$post = $this->db->query('SELECT posts.id as id, posts.title, price, state, fecha_creacion, description, id_user, tipo_moneda, category.title as categoria, subcategory.title as subcategoria, 							provinces.title as provincia 
+									FROM posts INNER JOIN subcategory ON subcategory.id = posts.id_subcategory
+									INNER JOIN provinces ON provinces.id = posts.id_prividence
+									INNER JOIN category ON subcategory.id_category = category.id
+									WHERE posts.id =  "' . $parametro . '" OR
+									category.title like "' . $parametro . '" OR 
+									subcategory.title like "' . $parametro . '"  OR 
+									provinces.title like  "' . $parametro . '"
+									ORDER BY posts.title ASC');
+		$post = $post->fetchAll(PDO::FETCH_ASSOC);
+		return $post;
+	}
+
 	public function getProvincias(){
 
 		$provincias = $this->db->query('SELECT * FROM provinces ORDER BY title ASC');

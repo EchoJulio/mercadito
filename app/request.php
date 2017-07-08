@@ -31,7 +31,7 @@
 	 	 	//Asignamos desde la url en segundo valor del array que sera el metodo
 	 	 	$this->metodo = strtolower(array_shift($url));
 
-	 	 	//Por ultimo asignamos todos los argumentos restantes de la url 7.03
+	 	 	//Por ultimo asignamos todos los argumentos restantes de la url 
 	 	 	$this->argumentos = $url;
 	 	}
 

@@ -46,6 +46,8 @@ class Session{
 		}
 	}
 
+	
+
 	public static function acceso($level){
 		//Validamos que este autenticado 
 		if (!Session::get('autenticado')) {
@@ -63,6 +65,30 @@ class Session{
 			//Si el nivel de acceso requido es mayor al que tiene el usuario es entonces se niego el acceso
 				
 			header('Location:' . BASE_URL . 'error/access/5050');
+			exit;
+		
+		}
+
+		 
+	}
+
+	public static function post($level){
+		//Validamos que este autenticado 
+		if (!Session::get('autenticado')) {
+			//Si el usuario no esta autenticado
+			//lo redireccionamos
+
+			header('Location:' . BASE_URL . 'error/access/2020');
+			exit;
+		}
+		//validamos el tiempo
+		Session::tiempo();
+
+		//Validamos el nivel de acceso
+		if (Session::getLevel($level) > Session::getLevel(Session::get('level'))) {
+			//Si el nivel de acceso requido es mayor al que tiene el usuario es entonces se niego el acceso
+				
+			header('Location:' . BASE_URL . 'error/access/2020');
 			exit;
 		
 		}

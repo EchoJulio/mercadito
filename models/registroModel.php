@@ -31,7 +31,8 @@ class registroModel extends Model{
 
 	public function registrarUsuario($nombre,$usuario,$pass,$email){
 		//funcion para generar un codigo aleatorio para usarlo al validar el usuario via email
-		$random = rand(1278954545, 9999999999);
+		$random = rand(1278954545, 9999999999) ;
+		$random += rand(0, 9);
 		$pass = Hash::getHash('sha1',$pass,HASH_KEY);
 		$perfil = 'usuario';
 		$usuario = strtolower($usuario);
