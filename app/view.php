@@ -65,6 +65,7 @@ class View{
 				'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/' . 'css/',
 				'ruta_img' =>BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/' . 'img/',
 				'ruta_js' =>BASE_URL . 'public/' . 'js/',
+				'plugins' =>BASE_URL . 'plugins/',
 				'menu' => $menu,
 				'js' => $js
 

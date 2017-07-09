@@ -27,13 +27,13 @@
 								</div>
 								
 								<div class="col-md-12">
-									<a href="#" style="color: #000; "><h4><?php echo $categorias[8]['categoria']; ?></h4></a>
+									<a href="<?php echo BASE_URL; ?>categoria/index/<?php echo $categorias[8]['categoria']; ?>" style="color: #000; "><h4><?php echo $categorias[8]['categoria']; ?></h4></a>
 									<div class="list-group">
 									<?php
 										for ($i=0; $i < count($subCategorias) ; $i++) { 
 											if ($categorias[8]['id'] == $subCategorias[$i]['id_category']) {?>
 												
-												<a  style="color: #000; " href="<?php echo $subCategorias[$i]['id']; ?>"><div class="row-content"><i class="material-icons">chevron_right</i><?php echo $subCategorias[$i]['title']; ?></div></a>
+												<a  style="color: #000; " href="<?php echo BASE_URL; ?>categoria/index/<?php echo str_replace(" ","_",$subCategorias[$i]['title']); ?>"><div class="row-content"><i class="material-icons">chevron_right</i><?php echo $subCategorias[$i]['title']; ?></div></a>
 											<?php
 											}
 										}
@@ -49,18 +49,19 @@
 						
 						<div class="well" style="height: 250px;">
 								<div class="col-md-12 col-lg-offset-4">
+
 								<i class="material-icons" style="color: #03a9f4; font-size: 60px;"> <?php echo $categorias[7]['icon']; ?> </i>
 									
 								</div>
 								
 								<div class="col-md-12">
-									<a href="#" style="color: #000; "><h4><?php echo $categorias[7]['categoria']; ?></h4></a>
+								<a href="<?php echo BASE_URL; ?>categoria/index/<?php echo $categorias[7]['categoria']; ?>" style="color: #000; "><h4><?php echo $categorias[7]['categoria']; ?></h4></a>
 									<div class="list-group">
 									<?php
 										for ($i=0; $i < count($subCategorias) ; $i++) { 
 											if ($categorias[7]['id'] == $subCategorias[$i]['id_category']) {?>
 												
-												<a  style="color: #000; " href="<?php echo $subCategorias[$i]['id']; ?>"><div class="row-content"><i class="material-icons">chevron_right</i><?php echo $subCategorias[$i]['title']; ?></div></a>
+												<a  style="color: #000; " href="<?php echo BASE_URL; ?>categoria/index/<?php echo  str_replace(" ","_",$subCategorias[$i]['title']); ?>"><div class="row-content"><i class="material-icons">chevron_right</i><?php echo $subCategorias[$i]['title']; ?></div></a>
 											<?php
 											}
 										}
@@ -81,13 +82,13 @@
 								</div>
 								
 								<div class="col-md-12">
-									<a href="#" style="color: #000; "><h4><?php echo $categorias[6]['categoria']; ?></h4></a>
+									<a href="<?php echo BASE_URL; ?>categoria/index/<?php echo $categorias[6]['categoria']; ?>" style="color: #000; "><h4><?php echo $categorias[6]['categoria']; ?></h4></a>
 									<div class="list-group">
 									<?php
 										for ($i=0; $i < count($subCategorias) ; $i++) { 
 											if ($categorias[6]['id'] == $subCategorias[$i]['id_category']) {?>
 												
-												<a  style="color: #000; " href="<?php echo $subCategorias[$i]['id']; ?>"><div class="row-content"><i class="material-icons">chevron_right</i><?php echo $subCategorias[$i]['title']; ?></div></a>
+												<a  style="color: #000; " href="<?php echo BASE_URL; ?>categoria/index/<?php echo str_replace(" ","_",$subCategorias[$i]['title']); ?>"><div class="row-content"><i class="material-icons">chevron_right</i><?php echo $subCategorias[$i]['title']; ?></div></a>
 											<?php
 											}
 										}
@@ -189,7 +190,7 @@
 			<!-- </div> -->
 			<div class="row">
 				<div class="col-md-4 col-lg-offset-10">
-				<a href="#" class="btn btn-raised btn-success">Ver mas..</a>
+				<a href="<?php echo BASE_URL; ?>categoria" class="btn btn-raised btn-success">Ver mas..</a>
 			</div>
 			</div>
 		</div>

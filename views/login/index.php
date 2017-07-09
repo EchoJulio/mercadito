@@ -12,6 +12,12 @@
        <div class="form-group">
             <label for="pass" class="sr-only">Contraseña</label>
         <input type="password"  class="form-control" name="pass" placeholder="Contraseña" required="" >
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Recordarme
+          </label>
+          
+        </div>
        </div>
        <!--  <div class="checkbox">
           <label>

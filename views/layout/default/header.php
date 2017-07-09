@@ -8,14 +8,21 @@
   <title><?php if (isset($this->titulo)) {
     echo $this->titulo;
   } ?></title>
-<!--   Bootstrap Original -->
-  <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>views/layout/default/css/estilos.css">
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+
+   <!-- Material Design fonts -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
       <link href=" //netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
       rel="stylesheet">
+<!--   Bootstrap Original -->
+  <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>views/layout/default/css/estilos.css">
+
+
+ 
+
+
      
 
 
@@ -79,16 +86,16 @@
       <div class="col-lg-offset-3">
         <form class="navbar-form navbar-left">
         <div class="form-group">
-          <input type="text" class="form-control col-md-12" placeholder="Buscar...">
+          <input type="text" class="form-control col-md-12" name="buscar" placeholder="Buscar...">
 
         </div>
       </form>
       </div>
 
       <ul class="nav navbar-nav navbar-right">
-       <!--  <li><a href="javascript:void(0)">Link</a></li>
+        <!-- <li><a href="javascript:void(0)">Link</a></li>
         <li class="dropdown">
-          <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
+          <a href=""  class="dropdown-toggle" data-toggle="dropdown">Dropdown
             <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="javascript:void(0)">Action</a></li>
@@ -133,21 +140,7 @@
 
 
 
-<?php
-if (isset($layoutParams['ruta_js']) && count($layoutParams['ruta_js'])) {
 
-  ?>
-  <script type="text/javascript" src="<?php echo $layoutParams['ruta_js']; ?>jquery.js"></script>
-  <script type="text/javascript" src="<?php echo $layoutParams['ruta_js']; ?>bootstrap.js"></script>
-  <script type="text/javascript" src="<?php echo $layoutParams['ruta_js']; ?>material.js"></script>
-  <script type="text/javascript" src="<?php echo $layoutParams['ruta_js']; ?>ripples.js"></script>
-
-<?php
-}
-?>
-<script type="text/javascript">
-  $.material.init();
-</script>
  <?php
  if (isset($layoutParams['js']) && count($layoutParams['js']) && !empty($layoutParams['js'])) {
       $js = $layoutParams['js'];
@@ -167,5 +160,11 @@ if (isset($layoutParams['ruta_js']) && count($layoutParams['ruta_js'])) {
   </a>
 </div>
  <?php endif ?>
+
+ <script type="text/javascript" src="<?php echo $layoutParams['ruta_js']; ?>jquery.js"></script>
+
+ 
+
+
 
 

@@ -77,9 +77,9 @@
 
       </ul>
       <div class="col-lg-offset-3">
-        <form class="navbar-form navbar-left">
+        <form class="navbar-form navbar-left"  >
         <div class="form-group">
-          <input type="text" class="form-control col-md-12" placeholder="Buscar...">
+          <input type="text" class="form-control col-md-12"  placeholder="Buscar...">
 
         </div>
       </form>

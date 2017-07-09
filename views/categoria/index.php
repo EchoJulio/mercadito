@@ -1,37 +1,18 @@
-<div class="container">
-  <!-- <div class="row">
-    <div class="col-md-3">
-      <H2>Categorias</H2><hr>
-    </div>
-    <div class="col-md-9">
-      <h2>Anuncios</h2>
+<?php
+  // echo "<pre>";
+  // print_r($_POST);
+  // echo "</pre>";
+  //echo $this->b;
+?>
 
-    </div>
-  </div>
- -->
+<div class="container">
+
   <div class="row">
       <div class="col-md-4">
-        <div class="col-md-12">
-         <H2>Categorias</H2>
-        <hr>
-          <div class="well">
-            
-
-            <ul class="list-group">
-              <?php if (isset($this->categorias)): ?>
-              <?php $categorias = $this->categorias; ?>
-
-              <?php foreach ($categorias as $row => $value): ?>
-                <li class="list-group-item"><a class="" href="<?php echo BASE_URL; ?>categoria/index/<?php echo $value['categoria'] ?>" style="color: #000;"> <i class="material-icons " style="color: #03a9f4;"> <?php echo $value['icon']; ?> </i> <?php echo $value['categoria']; ?></a></li>
-              <?php endforeach ?>
-            <?php endif ?>
-            </ul>
-          </div>
-        </div>
+        
 
          <div class="col-md-12">
          <H2>Provincias</H2>
-        <hr>
           <div class="well">
             
 
@@ -40,7 +21,7 @@
               <?php $provincias = $this->provincias; ?>
 
               <?php foreach ($provincias as $row => $value): ?>
-                <li class="list-group-item"><i class="material-icons " style="color: #59B75C;">room</i><a class="" href="<?php echo BASE_URL; ?>categoria/index/<?php echo $value['title'] ?>" style="color: #000;"><?php echo $value['title']; ?></a></li>
+                <li class="list-group-item"><i class="material-icons " style="color: #59B75C;">room</i><a class="" href="<?php echo BASE_URL; ?>categoria/index/<?php echo str_replace(" ","_",$value['title']); ?>" style="color: #000;"><?php echo $value['title']; ?></a></li>
               <?php endforeach ?>
             <?php endif ?>
             </ul>
@@ -49,13 +30,28 @@
 
       </div>
 
+ 
 
     <div class="col-md-8">
-      <div class="col-md-12">
+     
+     <div class="col-md-12">
+        <div class="col-md-1">
         <H2>Anuncios</H2>
-        <hr>
+
+        
        
       </div>
+
+      <div class="col-md-2 col-lg-offset-9">
+         
+           <button type="button" data-toggle="modal" data-target="#myModal" title="Filtros" class="btn btn-raised btn-danger " ><i class="material-icons">list</i></button>
+
+         
+      </div>
+
+     </div>
+
+      
       <!-- <div class="well"> -->
 
 
@@ -153,5 +149,115 @@
       </div>
     </div>
   </div>
-  
+ 
+ 
 </div>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+       <form class="form-horizontal" method="post" id="form-filtros">
+       <input type="hidden" name="busqueda" value="1">
+        <div class="modal-header"> 
+          <button type="button" class="close" data-dismiss="modal" arial-hidden="true">x</button>
+          <h4 class="modal-title" >Filtros de busqueda</h4>
+        </div>
+
+        <div class="modal-body">
+
+        <div class="col-md-12">
+        <label>Categorias:</label>
+          <div class="row">
+              
+           <div class="col-md-4">
+             <div class="togglebutton">
+          <label>
+            <input type="checkbox" name="filtro" value="todos" checked="true">Todos
+          </label>
+           </div>
+           </div>
+           <?php if (isset($this->categorias)): ?>
+              <?php $categorias = $this->categorias; ?>
+
+              <?php foreach ($categorias as $row => $value): ?>
+                 <div class="col-md-4">
+                   <div class="togglebutton">
+                  <label>
+                    <input type="checkbox" value="<?php echo $value['categoria']; ?>" name="filtro"><?php echo $value['categoria']; ?>
+                  </label>
+                </div>
+                 </div>
+              <?php endforeach ?>
+            <?php endif ?>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+         <label>Subcategorias:</label>
+          <div class="row">
+            
+             <?php if (isset($this->subcategorias)): ?>
+              <?php $subcategorias = $this->subcategorias; ?>
+
+              <?php foreach ($subcategorias as $row => $value): ?>
+                 <div class="col-md-5">
+                     <div class="togglebutton">
+                    <label>
+                      <input  type="checkbox" value="<?php echo $value['title']; ?>" name="filtro"><?php echo $value['title']; ?>
+                    </label>
+                  </div>
+                 </div>
+              <?php endforeach ?>
+            <?php endif ?>
+          
+          </div>
+        </div>
+
+        
+
+        </div>
+
+        <div class="modal-footer">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-raised btn-info">Aplicar filtros</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+        </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    //Funcion para limitar la cantidad de checkBox activados
+    //Lo limitamos a solo 1 por vez en las categorias
+    $('.modal-body').on('change',function(e){
+
+      var chk =  $('.modal-body .col-md-12 .row .col-md-4').children();
+      chk = chk.children().children();
+      $(chk).each(function(){
+        chk.prop('checked', '');
+      })
+
+      e.target.checked = true;
+     
+
+    });
+
+    $('.modal-body').on('change',function(e){
+
+      var chk =  $('.modal-body .col-md-12 .row .col-md-5').children();
+      chk = chk.children().children();
+      $(chk).each(function(){
+        chk.prop('checked', '');
+      })
+
+      e.target.checked = true;
+     
+
+    });
+  });
+</script>
+
