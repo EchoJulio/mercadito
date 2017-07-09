@@ -41,11 +41,19 @@
 							<textarea rows="6" style="resize: none;"  required="" class="form-control" type="text" name="description" maxlength="200"  placeholder="Descripcíon" value="<?php if(isset($this->datos['description'])) echo $this->datos['description']; ?>"></textarea>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="margin-bottom: 32px;">
 						<label for="inputFile" class="col-md-2 control-label">Imagenes</label> 
 						<div class="col-md-9">
-							<input type="text" readonly="" class="form-control" style="margin-bottom: 15px;" placeholder="Seleciona un par de imagenes">
-							<input type="file" name="imagenes[]" id="inputFile" multiple="">
+							<input type="file" name="imagenes[]" multiple="">
+							<div class="input-group">
+							    <input type="text" readonly="" class="form-control" placeholder="Selecciona unas cuantas imagenes">
+							      <span class="input-group-btn input-group-sm">
+							        <button type="button" class="btn btn-fab btn-fab-mini">
+							          <i class="material-icons">attach_file</i>
+							        </button>
+							      </span>
+							  </div>
+
 						</div>
 						
 						
@@ -104,23 +112,28 @@
 								<input value="<?php if(isset($this->datos['price'])) echo $this->datos['price']; ?>" class="form-control" type="number" name="price" required="" placeholder="0,000.00">						
 							</div>
 
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group">
-									<div class="col-md-6">
-								          <label>
+									<div class="col-md-12">
+								          <div class="radio radio-primary">
+								          	<label>
 								            <input type="radio" name="moneda"  value="RD$" checked="">
 								       		RD$
 								          </label>
+								          </div>
 									</div>
 							        
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
-								          <label>
-								            <input type="radio" name="moneda"  value="USD$" >
-								       		USD$
-								          </label>
+
+								<div class="radio radio-primary">
+						          <label>
+						          <input type="radio" name="moneda"  value="USD$" >USD$
+								  </label>
+						        </div>
+								          
 								</div>
 							</div>
 
@@ -134,25 +147,31 @@
 							<label class="col-md-2 control-label">Estado:</label>
 							<div class="form-group">
 								<div class="col-md-3">
-							          <label>
+							          <div class="radio radio-primary">
+							          	<label>
 							            <input type="radio" name="estado"  value="usado" checked="">
 							       		Usado
 							       		</label>
+							          </div>
 								</div>
 							
 
 								<div class="col-md-3">
-								  <label>
+								 <div class="radio radio-primary">
+								 	 <label>
 								    <input type="radio" name="estado"  value="nuevo">
 										Nuevo
 								  </label>
+								 </div>
 								</div>
 
 								<div class="col-md-3">							
-								  <label>
+								  <div class="radio radio-primary">
+								  	<label>
 								    <input type="radio" name="estado"  value="reparado">
 										Reparado	
-								  </label>	       		
+								  </label>	    
+								  </div>   		
 								</div>
 
 
