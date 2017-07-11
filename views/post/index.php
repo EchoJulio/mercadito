@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo BASE_URL; ?>views/post/js/post.js"></script>
 <?php
 
 	// echo "<pre>";
@@ -43,8 +44,8 @@
 					</div>
 					<div class="form-group" style="margin-bottom: 32px;">
 						<label for="inputFile" class="col-md-2 control-label">Imagenes</label> 
-						<div class="col-md-9">
-							<input type="file" name="imagenes[]" multiple="">
+						<div class="col-md-10">
+							<input type="file" id="imagenes" name="imagenes[]" multiple="">
 							<div class="input-group">
 							    <input type="text" readonly="" class="form-control" placeholder="Selecciona unas cuantas imagenes">
 							      <span class="input-group-btn input-group-sm">
@@ -56,15 +57,24 @@
 
 						</div>
 						
-						
+						<div id="mensaje" class="col-md-6 col-lg-offset-5">
+							
+						</div>
+						<div id="imgList" class="col-md-12">
+							
+							<div id="foto0" class="img-thumbnail col-md-2" style="width: 80px; height: 80px; margin: 5px; padding:5px;"><i class="material-icons" style="font-size: 73px; opacity: .5;">photo_camera</i></div>
+							<div id="foto1" class="img-thumbnail col-md-2" style="width: 80px; height: 80px; margin: 5px; padding:5px;"><i class="material-icons" style="font-size: 73px; opacity: .5;">photo_camera</i></div>
+							<div id="foto2" class="img-thumbnail col-md-2" style="width: 80px; height: 80px; margin: 5px; padding:5px;"><i class="material-icons" style="font-size: 73px; opacity: .5;">photo_camera</i></div>
+							<div id="foto3" class="img-thumbnail col-md-2" style="width: 80px; height: 80px; margin: 5px; padding:5px;"><i class="material-icons" style="font-size: 73px; opacity: .5;">photo_camera</i></div>
+							<div id="foto4" class="img-thumbnail col-md-2" style="width: 80px; height: 80px; margin: 5px; padding:5px;"><i class="material-icons" style="font-size: 73px; opacity: .5;">photo_camera</i></div>
+						</div>
 					</div>
-					
 					<input type="hidden" name="enviar" value="1">
 				</div>
 			</div>
 
 			<div class="col-md-6">
-				<div class="well" >
+				<div class="well">
 					<legend>Paso: 2</legend>
 					<div class="form-group">
 						<label class="col-md-2 control-label">Categoria:</label>
@@ -141,7 +151,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group"  style="margin-bottom: 126px;">
 
 						<div class="col-md-12">
 							<label class="col-md-2 control-label">Estado:</label>

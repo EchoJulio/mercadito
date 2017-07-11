@@ -1,3 +1,5 @@
+
+
 <div class="container">
 
 	<div class="col-md-4 col-md-offset-4">
@@ -48,7 +50,9 @@
         <div class="modal-body">
           <p><?php if (isset($this->mensajeError)): ?>
           <script type="text/javascript">
-              $('#myModal').modal('show');
+             $(document).ready(function(){
+                $('#myModal').modal('show');
+             })
 
           </script>
                 <?php echo $this->mensajeError; ?>
@@ -64,6 +68,7 @@
   
 </div>
 </div>
+
 
 
 

@@ -33,10 +33,11 @@ class LoginController extends Controller
 				exit;
 			}
 
+			$row = array();
 			$row = $this->login->login($this->getAlphaNum('usuario'),$this->getSql('pass'));
 
 
-			if (count($row) == 0 || !$row) {
+			if (count($row) <= 1) {
 				$this->view->mensajeError = 'Usuario y/o Contraseña incorrectos';
 				$this->view->renderizar('index','login');
 				exit;
