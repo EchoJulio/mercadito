@@ -23,13 +23,5 @@ class verController extends Controller
 		$this->view->renderizar('index');
 	}
 
-	// public function ver($id = false){
-	// 	Session::acceso('usuario');
-
-	// 	$id = (int) $id;
-	// 	$this->view->id = $id;
-	// 	//$this->view->post =  $this->post->getPost($id);
-	// 	$this->view->renderizar('ver');
-	// }
 
 }

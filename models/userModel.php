@@ -6,13 +6,14 @@ class userModel extends model{
 		parent::__construct();
 	}
 
-	public function add($name,$user,$pass,$email){
+	public function add($name,$user,$pass,$email,$telefono){
 
-		$query = $this->db->prepare("INSERT INTO users(name,user,password,email) VALUES (:name,:user,:pass,:email)");
+		$query = $this->db->prepare("INSERT INTO users(name,user,password,email,telefono) VALUES (:name,:user,:pass,:email,:telefono)");
 		$query->bindParam(':name',$name);
 		$query->bindParam(':user',$user);
 		$query->bindParam(':pass',$pass);
 		$query->bindParam(':email',$email);
+		$query->bindParam(':telefono',$telefono);
 		if ($query->execute()) {
 			return true;
 		}

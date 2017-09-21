@@ -1,24 +1,33 @@
 <?php
-
-class View{
+require_once ROOT. 'libs' . DS . 'smarty' . DS . 'libs' . DS . 'Smarty.class.php';
+class View extends Smarty{
 
 	private $controlador;
 	private $js;
 
 	public function __construct(Request $peticion){
 		//Obtenemos el nombre controlador solicitado via url
+		parent::__construct();
 		$this->controlador = $peticion->getControlador();
 		$this->js = array();
 	}
 
 	public function renderizar($vista, $item = false){
+
+		//directorios de configuracion de la lib smarty
+		$this->template_dir = ROOT . 'views' . DS . 'layout'. DS . DEFAULT_LAYOUT . DS;
+		$this->config_dir = ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'configs' . DS;
+		$this->cache_dir = ROOT . 'tmp' . DS . 'cache' . DS;
+		$this->compile_dir = ROOT . 'tmp' . DS . 'template' . DS;
+
 		//Metodo para llamar a las vistas.
 		//El parametro item es usado para saber cambiar la clase active en el menu
 
 		$js = array();
+		$menu_right = array();
 
 		//Array de las opciones del menu
-		$menu = array(
+		$menu_left = array(
 
 			array(
 					'id' => 'inicio',
@@ -29,6 +38,11 @@ class View{
 					'id' => 'publicar',
 					'titulo' => 'Publicar',
 					'enlace' => BASE_URL . 'post'
+				),
+			array(
+					'id' => 'buscar',
+					'titulo' => 'Buscar Anuncio',
+					'enlace' => BASE_URL . 'categoria'
 				)
 			
 		);
@@ -36,7 +50,7 @@ class View{
 		//Cuando el usuario esta autenticado
 		//Generamos este menu
 		if (Session::get('autenticado')) {
-			$menu[] = array(
+			$menu_right[] = array(
 					'id' => 'login',
 					'titulo' => 'Cerrar Sesion',
 					'enlace' => BASE_URL . 'login/cerrar'
@@ -44,12 +58,12 @@ class View{
 		}else{
 			//Si no esta autenticado
 			//Generamos este menu
-			$menu[] = array(
+			$menu_right[] = array(
 					'id' => 'login',
 					'titulo' => 'Iniciar Sesion',
 					'enlace' => BASE_URL . 'login'
 				);
-			$menu[] = array(
+			$menu_right[] = array(
 					'id' => 'registro',
 					'titulo' => 'Registro',
 					'enlace' => BASE_URL . 'registro'
@@ -60,35 +74,45 @@ class View{
 		if (count($this->js)) {
 			$js = $this->js;
 		}
-			$layoutParams = array(
+			$_params = array(
 				
 				'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/' . 'css/',
 				'ruta_img' =>BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/' . 'img/',
 				'ruta_js' =>BASE_URL . 'public/' . 'js/',
 				'plugins' =>BASE_URL . 'plugins/',
-				'menu' => $menu,
-				'js' => $js
+				'menu_left' => $menu_left,
+				'menu_right' => $menu_right,
+				'item' => $item,
+				'js' => $js,
+				'root' => BASE_URL,
+				'configs' => array(
+					'app_name' => APP_NAME,
+					'app_slogan' => APP_SLOGAN,
+					'app_company' => APP_COMPANY
+					)
 
 			);
 		
 		
 
 		//Aqui generemos el nombre del archivo que contiene la vista solicitada
-		$rutaView = ROOT . 'views' . DS . $this->controlador . DS . $vista . '.php';
+		$rutaView = ROOT . 'views' . DS . $this->controlador . DS . $vista . '.tpl';
 		
 		//Verificamos si el archivo  existe o puede user ejecutado
 		if (is_readable($rutaView)) {
 
-			if ($rutaView == ROOT . 'views' . DS . 'index'. DS . 'index' . '.php') {
+			if ($rutaView == ROOT . 'views' . DS . 'index'. DS . 'index' . '.tpl') {
 
-				include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'portada.php';
-				include_once $rutaView;
-				include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'footer.php';
+				$this->assign('_contenido', $rutaView);
+				$this->assign('_layoutParams', $_params);
+				$this->display('template_portada.tpl');
+
+				
 
 			}else{
-				include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'header.php';
-				include_once $rutaView;
-				include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'footer.php';
+				$this->assign('_contenido', $rutaView);
+				$this->assign('_layoutParams', $_params);
+				$this->display('template.tpl');
 			}
 				
 
@@ -96,6 +120,8 @@ class View{
 			throw new Exception("Error: con la vista solicitada");
 			
 		}
+
+		
 	}
 
 	public function setJs(array $js){

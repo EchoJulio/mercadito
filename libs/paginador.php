@@ -129,7 +129,6 @@ class Paginador
 		
 		if($link)
 		$link = BASE_URL . $link . '/';
-		
 		if(is_readable($rutaView)){
 			ob_start();
 			

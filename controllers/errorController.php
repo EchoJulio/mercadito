@@ -7,8 +7,8 @@ class errorController extends Controller{
 	}
 
 	public function index(){
-		$this->view->titulo = 'Error';
-		$this->view->mensaje = $this->getError();
+		$this->view->assign('titulo', 'Error');
+		$this->view->assign('mensaje',$this->getError());
 
 		//Mi metodo para llamar las vistas
 		$this->view->renderizar('index','error');
@@ -17,8 +17,8 @@ class errorController extends Controller{
 	
 
 	public function access($codigo){
-		$this->view->titulo = 'Error';
-		$this->view->mensaje = $this->getError($codigo);
+		$this->view->assign('titulo', 'Error');
+		$this->view->assign('mensaje',$this->getError($codigo));
 
 		//Mi metodo para llamar las vistas
 		$this->view->renderizar('access');

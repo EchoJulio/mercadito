@@ -17,18 +17,18 @@ class LoginController extends Controller
 		if (Session::get('autenticado')) {
 			$this->redireccionar();
 		}
-		$this->view->titulo = 'Iniciar Sesion';
+		$this->view->assign('titulo', 'Iniciar Sesion');
 		if ($this->getInt('enviar') == 1) {
-			$this->view->datos = $_POST;
+			$this->view->assign('datos',$_POST);
 
 			if (!$this->getAlphaNum('usuario')) {
-				$this->view->mensajeError = 'Debe introducir un usuario';
+				$this->view->assign('mensajeError','Debe introducir un usuario');
 				$this->view->renderizar('index','login');
 				exit;
 			}
 
 			if (!$this->getSql('pass')) {
-				$this->view->mensajeError = 'Debe introducir una contraseña';
+				$this->view->assign('mensajeError','Debe introducir una contraseña');
 				$this->view->renderizar('index','login');
 				exit;
 			}
@@ -38,7 +38,7 @@ class LoginController extends Controller
 
 
 			if (count($row) <= 1) {
-				$this->view->mensajeError = 'Usuario y/o Contraseña incorrectos';
+				$this->view->assign('mensajeError','Usuario y/o Contraseña incorrectos');
 				$this->view->renderizar('index','login');
 				exit;
 			}
@@ -53,6 +53,7 @@ class LoginController extends Controller
 			Session::set('autenticado',true);
 			Session::set('level',$row['perfil']);
 			Session::set('usuario',$row['user']);
+			Session::set('nombre',$row['name']);
 			Session::set('id',$row['id']);
 			Session::set('tiempo',time());
 

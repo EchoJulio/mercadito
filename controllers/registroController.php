@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class registroController extends Controller{
 
@@ -16,51 +16,57 @@ class registroController extends Controller{
 			$this->redireccionar();
 		}
 
-		$this->view->titulo = 'Registro';
+		$this->view->assign('titulo','Registro');
 
 		if ($this->getInt('enviar') == 1) {
 			
-			$this->view->datos = $_POST;
+			$this->view->assign('datos',$_POST);
 
 			if ($this->validarNombre('nombre')) {
-				$this->view->errorNombre = 'Debe introducir su nombre valido patron expresion';
+				$this->view->assign('errorNombre', 'Debe introducir su nombre valido patron expresion');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			if (!$this->getSql('nombre')) {
-				$this->view->errorNombre = 'Debe introducir su nombre';
+				$this->view->assign('errorNombre', 'Debe introducir su nombre');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			if ($this->noEspacio('usuario')) {
-				$this->view->errorUsuario = 'El usuario no puede tener espacios en blanco';
+				$this->view->assign('errorUsuario','El usuario no puede tener espacios en blanco');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			if ($this->validarUsuario('usuario')) {
-				$this->view->errorUsuario = 'El usuario tiene caracteres invalidos';
+				$this->view->assign('errorUsuario','El usuario tiene caracteres invalidos');
 				$this->view->renderizar('index');
 				exit;
 			}
 			
 			if (!$this->getAlphaNum('usuario')) {
-				$this->view->errorUsuario = 'Debe introducir su usuario: ' .$this->getAlphaNum('usuario');
+				$this->view->assign('errorUsuario','Debe introducir su usuario: ' . $this->getAlphaNum('usuario'));
+				$this->view->renderizar('index');
+				exit;
+			}
+
+			if (!$this->validarTelefono('telefono')) {
+				$this->view->assign('errorTelefono','Debe introducir un Telefono Valido');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			
 			if ($this->registro->verificarUsuario($this->getAlphaNum('usuario'))) {
-				$this->view->errorUsuario = 'El usuario: ' . $this->getAlphaNum('usuario') . ' ya existe';
+				$this->view->assign('errorUsuario','El usuario: ' . $this->getAlphaNum('usuario') . ' ya existe');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			if (!$this->validarEmail($this->getPostParam('email'))) {
-				$this->view->errorEmail = 'Debe introducir un email valido';
+				$this->view->assign('errorEmail','Debe introducir un email valido');
 				$this->view->renderizar('index');
 				exit;
 			}
@@ -68,19 +74,19 @@ class registroController extends Controller{
 			if ($this->registro->verificarEmail($this->getPostParam('email'))) {
 				//Avisamos que el registro fue exitoso
 				//Enviando a la vista un mensaje de exito
-				$this->view->errorEmail = 'Este E-mail ya esta registrado';
+				$this->view->assign('errorEmail','Este E-mail ya esta registrado');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			if (!$this->getSql('pass')) {
-				$this->view->errorPass = 'Debe introducir su contraseña';
+				$this->view->assign('errorPass','Debe introducir su contraseña');
 				$this->view->renderizar('index');
 				exit;
 			}
 
 			if ($this->getPostParam('pass') != $this->getPostParam('confirmar')) {
-				$this->view->errorPass = 'La contraseñas no coinciden';
+				$this->view->assign('errorPass','La contraseñas no coinciden');
 				$this->view->renderizar('index');
 				exit;
 			}
@@ -91,15 +97,16 @@ class registroController extends Controller{
 
 			//Instanciamos la clase para enviar los email
 			$mail = new PHPMailer();
-			
 
 			//Registrar el usuario
 			$this->registro->registrarUsuario(
 				$this->getPostParam('nombre'),
 				$this->getAlphaNum('usuario'),
 				$this->getPostParam('pass'),
-				$this->getPostParam('email')
+				$this->getPostParam('email'),
+				$this->getPostParam('telefono')
 				);
+
 
 			$usuario = $this->registro->verificarUsuario($this->getAlphaNum('usuario'));
 			$mail->From = MAIL_COMPANY;
@@ -112,9 +119,9 @@ class registroController extends Controller{
 			$mail->addAddress($this->getPostParam('email'));
 
 			if (!$mail->send()) {
-			    $this->view->mensaje=  "Mailer Error: " . $mail->ErrorInfo;
+			    $this->view->assign('mensaje',"Mailer Error: " . $mail->ErrorInfo);
 			} else {
-			    $this->view->mensaje= "Muy bien! el registro fue exitoso, <b>revise su email para activar su cuenta</b>";
+			    $this->view->assign('mensaje', "Muy bien! el registro fue exitoso, <b>revise su email para activar su cuenta</b>");
 			}
 
 				
@@ -125,7 +132,7 @@ class registroController extends Controller{
 				exit;
 
 				//Vaciamos el array
-				$this->view->datos = false;
+				$this->view->assign('datos', false);
 			
 		}
 
@@ -134,13 +141,20 @@ class registroController extends Controller{
 	}
 
 	public function activar($id, $codigo){
-
+		if (isset($id) || isset($codigo)) {
+			$id = (int) $id;
+			$codigo = (int) $codigo;
+		}else{
+			
+			$this->redireccionar('error/access/1010');
+		}
 		if (!$this->filtrarInt($id) || !$this->filtrarInt($codigo)) {
 
-			$this->view->errorCuenta = 'Esta cuenta no existe';
+			$this->view->assign('errorCuenta','Esta cuenta no existe');
 			$this->view->renderizar('activar','registro');
 			exit;
 		}
+
 
 		$row = $this->registro->getUsuario(
 								$this->filtrarInt($id),
@@ -148,13 +162,13 @@ class registroController extends Controller{
 								 );
 
 		if (!$row) {
-			$this->view->errorUsuario = 'Esta cuenta no existe';
+			$this->view->assign('errorUsuario','Esta cuenta no existe');
 			$this->view->renderizar('activar');
 			exit;
 		}
-		$this->view->datos = $row;
+		//$this->view->datos = $row;
 		if ($row['validate'] == 1) {
-			$this->view->errorValidar = 'Esta cuenta ya ha sido activada';
+			$this->view->assign('errorValidar','Esta cuenta ya ha sido activada');
 			$this->view->renderizar('activar');
 			exit;
 		}
@@ -170,12 +184,12 @@ class registroController extends Controller{
 								 );
 
 		if ($row['validate'] == 0) {
-			$this->view->errorActivar = 'Erro al activar la cuenta intente mas tarde';
+			$this->view->assign('errorActivar','Erro al activar la cuenta intente mas tarde');
 			$this->view->renderizar('activar');
 			exit;
 		}
 
-		$this->view->mensaje = 'Su cuenta ha sido activada';
+		$this->view->assign('mensaje','Su cuenta ha sido activada');
 		$this->view->renderizar('activar');
 	}
 }

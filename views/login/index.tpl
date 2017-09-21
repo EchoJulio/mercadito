@@ -6,10 +6,10 @@
 		
 <div class="well">
     <form class="form-signin" method="post" action="">
-    <h3><?php echo $this->titulo; ?></h3><hr>
+    <h3>{$titulo|default:'Sin Titulo'}</h3><hr>
         <div class="form-group">
             <label for="usuario" class="sr-only">Email address</label>
-        <input type="text" class="form-control" name="usuario" placeholder="Usuario" required="" autofocus="" style="margin-bottom: 5px;" value="<?php if(isset($this->datos['user'])) echo $this->datos['user']; ?>">
+        <input type="text" class="form-control" name="usuario" placeholder="Usuario" required="" autofocus="" style="margin-bottom: 5px;" value="{if isset($datos.user)} {$datos.user} {/if}">
         </div>
        <div class="form-group">
             <label for="pass" class="sr-only">Contraseña</label>
@@ -48,15 +48,16 @@
           <h4 class="modal-title" style="text-align: center;"><i class="material-icons" style="color: #ff6736; font-size: 40px;">error</i></h4>
         </div>
         <div class="modal-body">
-          <p><?php if (isset($this->mensajeError)): ?>
+          <p> {if isset($mensajeError)}
           <script type="text/javascript">
              $(document).ready(function(){
                 $('#myModal').modal('show');
              })
 
           </script>
-                <?php echo $this->mensajeError; ?>
-          <?php endif ?></p>
+                {$mensajeError}
+          {/if}
+          </p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">ok</button>

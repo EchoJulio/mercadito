@@ -2,7 +2,7 @@
 
 class categoriaController extends Controller
 {
-	private $categoria;
+	private $categoria; 
 
 	public function __construct()
 	{
@@ -10,7 +10,7 @@ class categoriaController extends Controller
 		$this->categoria = $this->loadModel('categoria');
 	}
 
-	public function index($busqueda = false,$pagina = false){
+	public function index($busqueda = false, $pagina = false){
 		
 		$post = $this->loadModel('post');
 
@@ -25,88 +25,86 @@ class categoriaController extends Controller
 		}
 
 		$busqueda = (string) $busqueda;
+		// $busqueda = str_replace("-"," - ",$busqueda);
+		// $busqueda = str_replace("_"," ",$busqueda);
+		$this->view->assign('titulo','Categoria');
+		$limite = 20;
+		$this->getLibrary('paginador');
+		$paginador = new Paginador();
 
+		if(strlen($busqueda) > 3){
 
-
-		if ($this->getPostParam('busqueda') == 1 && $this->getPostParam('filtro') != 'todos') {
-			$busqueda = str_replace("-"," - ",$busqueda);
-			$this->getLibrary('paginador');
-			$paginador = new Paginador();
-			$limite = 10;
-
-
-			 $this->view->titulo = 'Categoria';
-			 $this->view->post = $paginador->paginar($post->getPostFilter($this->getPostParam('filtro')), $pagina, $limite);
-			 $this->view->paginacion = $paginador->getView('prueba','categoria/index');
-			 $this->view->categorias = $post->getCategorias();
-			 $this->view->provincias = $post->getProvincias();
-			 $this->view->subcategorias = $post->getSubCategorias();
-			 $this->view->images = $post->getImg();
-
-			//Enviar un el parametro titulo a la vista
-			$this->view->titulo = 'Mercadito';
-			$this->view->renderizar('index');
-		}
-		elseif( $this->getPostParam('busqueda') == 1 && $this->getPostParam('filtro') == 'todos'){
-
-			$this->getLibrary('paginador');
-			$paginador = new Paginador();
-			$limite = 10;
-
-			 $this->view->titulo = 'Categoria';
-			 $this->view->post = $paginador->paginar($post->getPosts(), $pagina, $limite);
-			 $this->view->paginacion = $paginador->getView('prueba','categoria/index');
-			 $this->view->categorias = $post->getCategorias();
-			 $this->view->subcategorias = $post->getSubCategorias();
-			 $this->view->provincias = $post->getProvincias();
-			 $this->view->images = $post->getImg();
-
-			//Enviar un el parametro titulo a la vista
-			$this->view->titulo = 'Mercadito';
-			$this->view->renderizar('index');
-
-		}
-		elseif($busqueda){
-			$busqueda = str_replace("-"," - ",$busqueda);
 			
-			$busqueda = str_replace("_"," ",$busqueda);
-			
-			$this->getLibrary('paginador');
-			$paginador = new Paginador();
-			$limite = 10;
-			$this->view->b = $busqueda;
+			$this->view->assign('categorias',$post->getCategorias());
+			$this->view->assign('provincias',$post->getProvincias());
+			$this->view->assign('subcategorias',$post->getSubCategorias());
+			$posts = $paginador->paginar($post->getPostFilter($busqueda), $pagina, $limite);
+			$this->view->assign('post',$paginador->paginar($posts, $pagina, $limite));
+			$this->view->assign('paginacion',$paginador->getView('prueba', 'categoria/index/'.$busqueda));
+			$img = $post->getImg();
+			$contador = 0;
+			$img_filtradas =array();
 
-			 $this->view->titulo = 'Categoria';
-			 $this->view->post = $paginador->paginar($post->getPostFilter($busqueda), $pagina, $limite);
-			 $this->view->paginacion = $paginador->getView('prueba','categoria/index');
-			 $this->view->categorias = $post->getCategorias();
-			 $this->view->subcategorias = $post->getSubCategorias();
-			 $this->view->provincias = $post->getProvincias();
-			 $this->view->images = $post->getImg();
+				foreach ($posts as $row => $value) {
+
+					foreach ($img as $row => $img_value) {
+
+						if ($value['id'] == $img_value['id_post'] && $contador == 0 ) {
+
+							$img_filtradas[]= array(
+													'format' => $img_value['format'],
+													'title' => $img_value['title'],
+													'id_post' => $img_value['id_post']
+													);
+							$contador++;
+						}
+					}
+
+					$contador = 0;
+				}
+		
+			$this->view->assign('images',$img_filtradas);
 
 			//Enviar un el parametro titulo a la vista
-			$this->view->titulo = 'Mercadito';
-			$this->view->renderizar('index');
+			$this->view->renderizar('index','Buscar Anuncio');
 
 		}
-
 		else{
+			
+			$pagina = $busqueda;
+			$this->view->assign('categorias',$post->getCategorias());
+			$this->view->assign('provincias',$post->getProvincias());
+			$this->view->assign('subcategorias',$post->getSubCategorias());
+			$posts = $paginador->paginar($post->getPosts(), $pagina, $limite);
+			$this->view->assign('post',$posts);
+			$this->view->assign('paginacion',$paginador->getView('prueba','categoria/index'));
+			$img = $post->getImg();
+			$contador = 0;
+			$img_filtradas =array();
 
-			$this->getLibrary('paginador');
-			$paginador = new Paginador();
-			$limite = 10;
+				foreach ($posts as $row => $value) {
 
-			 $this->view->titulo = 'Categoria';
-			 $this->view->post = $paginador->paginar($post->getPosts(), $pagina, $limite);
-			 $this->view->paginacion = $paginador->getView('prueba','categoria/index');
-			 $this->view->categorias = $post->getCategorias();
-			 $this->view->subcategorias = $post->getSubCategorias();
-			 $this->view->provincias = $post->getProvincias();
-			 $this->view->images = $post->getImg();
+					foreach ($img as $row => $img_value) {
+
+						if ($value['id'] == $img_value['id_post'] && $contador == 0 ) {
+
+							$img_filtradas[]= array(
+													'format' => $img_value['format'],
+													'title' => $img_value['title'],
+													'id_post' => $img_value['id_post']
+													);
+							$contador++;
+						}
+					}
+
+					$contador = 0;
+				}
+		
+			$this->view->assign('images',$img_filtradas);
+		
 
 			//Enviar un el parametro titulo a la vista
-			$this->view->titulo = 'Mercadito';
-			$this->view->renderizar('index');
+			$this->view->renderizar('index','Buscar Anuncio');
 		}
 		
 	}
@@ -129,16 +127,14 @@ class categoriaController extends Controller
 		$this->getLibrary('paginador');
 		$paginador = new Paginador();
 		$limite = 10;
-		 $this->view->titulo = 'Categoria';
-		 $this->view->post = $paginador->paginar($post->getPostFilter($busqueda), $pagina, $limite);
-		 $this->view->paginacion = $paginador->getView('prueba','categoria/index');
-		 $this->view->categorias = $post->getCategorias();
-		 $this->view->provincias = $post->getProvincias();
-		 $this->view->subcategorias = $post->getSubCategorias();
-		 $this->view->images = $post->getImg();
+		 $this->view->assign('post',$paginador->paginar($post->getPostFilter($busqueda), $pagina, $limite));
+		 $this->view->assign('paginacion',$paginador->getView('prueba', 'categoria/index'));
+		 $this->view->assign('categorias',$post->getCategorias());
+		 $this->view->assign('provincias',$post->getProvincias());
+		 $this->view->assign('subcategorias',$post->getSubCategorias());
+		 $this->view->assign('images',$post->getImg());
 
 		//Enviar un el parametro titulo a la vista
-		$this->view->titulo = 'Mercadito';
 		$this->view->renderizar('index');
 		
 	}

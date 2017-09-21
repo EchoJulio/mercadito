@@ -29,23 +29,35 @@ class registroModel extends Model{
 		}
 	}
 
-	public function registrarUsuario($nombre,$usuario,$pass,$email){
+	public function registrarUsuario($nombre,$usuario,$pass,$email,$telefono){
 		//funcion para generar un codigo aleatorio para usarlo al validar el usuario via email
-		$random = rand(1278954545, 9999999999) ;
-		$random += rand(0, 9);
+		$random = rand(1278954545, 9999999999);
+		$random += rand(0, 999);
 		$pass = Hash::getHash('sha1',$pass,HASH_KEY);
 		$perfil = 'usuario';
 		$usuario = strtolower($usuario);
 
-		$this->db->prepare("INSERT INTO users (name,user,password,email,perfil,codigo)
-					VALUES (:nombre,:usuario,:pass,:email,:perfil,:codigo)
+		$this->db->prepare("INSERT INTO users (name,user,password,email,perfil,codigo,telefono)
+					VALUES (:nombre,:usuario,:pass,:email,:perfil,:codigo,:telefono)
 					")->execute(array(
 				':nombre' =>$nombre,
 				':usuario' => $usuario,
 				':pass' => $pass,
 				':email' => $email,
 				':perfil' => $perfil,
-				':codigo' => $random
+				':codigo' => $random,
+				':telefono' => $telefono
+				));
+	}
+
+	public function editarUsuario($nombre,$usuario,$telefono,$id){
+
+		$this->db->prepare("UPDATE users SET name = :nombre ,user = :usuario ,telefono = :telefono
+					WHERE id = :id")->execute(array(
+				':nombre' =>$nombre,
+				':usuario' => $usuario,
+				':telefono' => $telefono,
+				':id' => $id
 				));
 	}
 

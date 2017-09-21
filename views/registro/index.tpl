@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2" >
 		<div class="well">
-			<legend><h3><?php echo $this->titulo; ?></h3></legend>	
+			<legend><h3>{$titulo}</h3></legend>	
 		
 	<form class="form-horizontal col-lg-offset-1" id="form-user-registrar" method="post" action="">
 		
@@ -15,18 +15,14 @@
 
     <div class="form-group">
     	 <div class="col-md-12"> 
-    	 	<?php
-       		if (isset($this->mensaje) && !empty($this->mensaje)) { ?>
+       		{if isset($mensaje) && !empty($mensaje)}
 			  	<div class="col-md-12">
 			  		<div class="alert alert-dismissible alert-success" style="margin-bottom: 0;">
 					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong style="font-size: 14px;"><?php echo $this->mensaje; ?></strong>
+					  <strong style="font-size: 14px;">{$mensaje}</strong>
 					</div>
 			  	</div>
-
-		<?php
-			  } 
-        ?>
+			{/if}
     	 </div>
     </div>
 
@@ -35,109 +31,98 @@
 
       <label for="nombre" class="col-lg-2 control-label">Nombre:</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" name="nombre" placeholder="Nombre"  value="<?php if (isset($this->datos['nombre']) && !empty($this->datos['nombre'])) echo $this->datos['nombre'] ?>">
+        <input type="text" class="form-control" name="nombre" placeholder="Nombre"  value="{if isset($datos.nombre) && !empty($datos.nombre)}{$datos.nombre}{/if}">
       </div>
-      	  <?php
-       		if (isset($this->errorNombre) && !empty($this->errorNombre)) { ?>
+       		{if isset($errorNombre) && !empty($errorNombre)}
 			  	<div class="col-md-6" >
 			  		<div class="alert alert-dismissible alert-danger" style="margin-bottom: 0;">
 					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong style="font-size: 14px;"><?php echo $this->errorNombre; ?></strong>
+					  <strong style="font-size: 14px;">{$errorNombre}</strong>
 					</div>
 			  	</div>
-
-		<?php
-			  } 
-        ?>
+			{/if}
     </div>
 
 
 	<div class="form-group">
       <label for="usuario" class="col-lg-2 control-label">Usuario:</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" name="usuario" placeholder="Usuario" value="<?php if (isset($this->datos['usuario']) && !empty($this->datos['usuario'])) echo $this->datos['usuario'] ?>">
+        <input type="text" class="form-control" name="usuario" placeholder="Usuario" value="{if isset($datos.usuario) && !empty($datos.usuario)}{$datos.usuario}{/if}">
       </div>
-
-       <?php
-       		if (isset($this->errorUsuario) && !empty($this->errorUsuario)) { ?>
+       		{if isset($errorUsuario) && !empty($errorUsuario)}
 			  	<div class="col-md-6">
 			  		<div class="alert alert-dismissible alert-danger" style="margin-bottom: 0;">
 					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong style="font-size: 14px;"><?php echo $this->errorUsuario; ?></strong>
+					  <strong style="font-size: 14px;">{$errorUsuario}</strong>
 					</div>
 			  	</div>
-
-		<?php
-			  } 
-        ?>
-
+			{/if}
     </div>
 
     <div class="form-group">
-      <label for="email" class="col-lg-2 control-label">Correo</label>
+      <label for="email" class="col-lg-2 control-label">Telefono:</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" name="email" placeholder="Correo" value="<?php if (isset($this->datos['email']) && !empty($this->datos['email'])) echo $this->datos['email'] ?>">
+        <input type="text" class="form-control" name="telefono" placeholder="809-555-5555" value="{if isset($datos.telefono) && !empty($datos.telefono)}{$datos.telefono}{/if}">
       </div>
-
-	 <?php
-       		if (isset($this->errorEmail) && !empty($this->errorEmail)) { ?>
+			{if isset($errorTelefono) && !empty($errorTelefono)}
 			  	<div class="col-md-6">
 			  		<div class="alert alert-dismissible alert-danger" style="margin-bottom: 0;">
 					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong style="font-size: 14px;"><?php echo $this->errorEmail; ?></strong>
+					  <strong style="font-size: 14px;">{$errorTelefono}</strong>
 					</div>
 			  	</div>
+			 {/if}
+    </div>
 
-		<?php
-			  } 
-        ?>
-
-
+    <div class="form-group">
+      <label for="email" class="col-lg-2 control-label">Correo:</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="email" placeholder="Correo" value="{if isset($datos.email) && !empty($datos.email)}{$datos.email}{/if}">
+      </div>
+			{if isset($errorEmail) && !empty($errorEmail)}
+			  	<div class="col-md-6">
+			  		<div class="alert alert-dismissible alert-danger" style="margin-bottom: 0;">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  <strong style="font-size: 14px;">{$errorEmail}</strong>
+					</div>
+			  	</div>
+			 {/if}
     </div>
     <div class="form-group">
       <label for="pass" class="col-lg-2 control-label">Contraseña:</label>
       <div class="col-lg-4">
-        <input type="password" id="pass" class="form-control" name="pass" placeholder="Contraseña" value="<?php if (isset($this->datos['pass']) && !empty($this->datos['pass'])) echo $this->datos['pass'] ?>">
+        <input type="password" id="pass" class="form-control" name="pass" placeholder="Contraseña" value="{if isset($datos.pass) && !empty($datos.pass)} {$datos.pass}{/if}">
         
 
       </div>
 
-		<?php
-       		if (isset($this->errorPass) && !empty($this->errorPass)) { ?>
+       		{if isset($errorPass) && !empty($errorPass)}
 			  	<div class="col-md-6">
 			  		<div class="alert alert-dismissible alert-danger" style="margin-bottom: 0;">
 					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong style="font-size: 14px;"><?php echo $this->errorPass; ?></strong>
+					  <strong style="font-size: 14px;">{$errorPass}</strong>
 					</div>
 			  	</div>
 
-		<?php
-			  } 
-        ?>
-
+			{/if}
     </div>
    
      <div class="form-group">
       <label for="confirmar" class="col-lg-2 control-label">Confirmar:</label>
       <div class="col-lg-4">
-        <input type="password" class="form-control" name="confirmar" id="confirmar" placeholder="Confirmar" value="<?php if (isset($this->datos['confirmar']) && !empty($this->datos['confirmar'])) echo $this->datos['confirmar'] ?>">
+        <input type="password" class="form-control" name="confirmar" id="confirmar" placeholder="Confirmar" value="{if isset($datos.confirmar) && !empty($datos.confirmar)}{$datos.confirmar}{/if}">
         
 
       </div>
 
-		<?php
-       		if (isset($this->errorConfirmar) && !empty($this->errorConfirmar)) { ?>
+       		{if isset($errorConfirmar) && !empty($errorConfirmar)}
 			  	<div class="col-md-6">
 			  		<div class="alert alert-dismissible alert-danger " style="margin-bottom: 0;">
 					  <button type="button" class="close" data-dismiss="alert">&times;</button>
-					  <strong style="font-size: 14px;"><?php echo $this->errorConfirmar; ?></strong>
+					  <strong style="font-size: 14px;"> {$errorConfirmar}</strong>
 					</div>
 			  	</div>
-
-		<?php
-			  } 
-        ?>
-
+			{/if}
     </div>
 	
     <div class="form-group">

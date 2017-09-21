@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 	$('#imagenes').change(function(e){
 		var files = e.target.files;
 		var output = [];
@@ -25,7 +24,7 @@ $(document).ready(function(){
   				return function(e){
 
   					var span = document.createElement('span');
-  					span.innerHTML = ['<img class="img-thumbnail" style="width: 80px; height: 80px; margin: 5px;" src="' , e.target.result, '"title="', escape(theFile.name), '"/>'].join('');
+  					span.innerHTML = ['<div class="col-md-2"><img class="img-thumbnail" style="width: 80px; height: 80px; margin: 5px;" src="' , e.target.result, '"title="', escape(theFile.name), '"/></div>'].join('');
   					
   					document.getElementById('imgList').insertBefore(span, null);
   				};
@@ -35,4 +34,14 @@ $(document).ready(function(){
 
   		}
 	});
+
+  $('.close').on('click',function(e){
+    e.preventDefault();
+    var buton = e.target;
+    buton = $(buton);
+    buton = buton.parent().parent().parent();
+    buton.remove();
+
+  });
+
 })

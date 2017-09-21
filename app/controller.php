@@ -66,9 +66,23 @@ abstract class Controller{
 		return 0;
 	}
 
+	protected function validarTelefono($clave){
+		if (isset($_POST[$clave]) && !empty($_POST[$clave])) {
+
+				if (preg_match('/[0-9]+$/', $_POST[$clave]) && strlen($_POST[$clave]) == 10) {
+
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+	}
+
 	protected function getEmail($clave){
 		//Metodo para limpiar los campos de tipo enteros enviados por post
-		//transformar o quitar las comillas simples y doblres
+		//transformar o quitar las comillas simples y dobles
 		
 		if (isset($_POST[$clave]) && !empty($_POST[$clave])) {
 			$_POST[$clave] = filter_var($_POST[$clave], FILTER_VALIDATE_EMAIL);

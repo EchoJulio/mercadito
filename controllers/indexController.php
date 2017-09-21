@@ -10,21 +10,43 @@ class indexController extends Controller{
 	public function index(){
 
 		$post = $this->loadModel('post');
-		$this->view->categorias = $post->getCategorias();
-		$this->view->subCategorias = $post->getSubCategorias();
-		$this->view->images = $post->getImg();
+		$this->view->assign('subCategorias',$post->getSubCategorias());
 
+		$categorias = array();
+		$this->view->assign('categorias',$post->getCategorias(3));
 		//Llamamos la vista perteneciente a este metodo
 		$this->getLibrary('paginador');
 		$paginador = new Paginador();
 		$limite = 6;
 		$pagina = 0;
-		 $this->view->post = $paginador->paginar($post->getPosts(), $pagina, $limite);
-		 // $this->view->paginacion = $paginador->getView('prueba','categoria/index');
-		 $this->view->images = $post->getImg();
+		
+		$posts = $post->getPosts(6);
+		$img = $post->getImg();
+		$contador = 0;
+		$img_filtradas =array();
+
+		foreach ($posts as $row => $value) {
+
+			foreach ($img as $row => $img_value) {
+
+				if ($value['id'] == $img_value['id_post'] && $contador == 0 ) {
+
+					$img_filtradas[]= array(
+											'format' => $img_value['format'],
+											'title' => $img_value['title'],
+											'id_post' => $img_value['id_post']
+											);
+					$contador++;
+				}
+			}
+
+			$contador = 0;
+		}
+		$this->view->assign('posts',$post->getPosts(6));
+		$this->view->assign('images',$img_filtradas);
 
 		//Enviar un el parametro titulo a la vista
-		$this->view->titulo = 'Mercadito';
+		$this->view->assign('titulo','Mercadito');
 		$this->view->renderizar('index','inicio');
 		
 	}
